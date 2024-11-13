@@ -1,0 +1,7 @@
+/* custom_admin.css */
+
+th.column-name, th.column-email, th.column-subject, th.column-message,
+td.field-name, td.field-email, td.field-subject, td.field-message {
+    text-align: left;  /* Left-aligns all data cells and headers for Contact model */
+    padding: 10px;     /* Adds padding for better spacing */
+}
