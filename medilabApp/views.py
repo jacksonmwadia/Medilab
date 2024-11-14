@@ -65,13 +65,7 @@
 #     delete_contacts = Contact.objects.get(id=contact_id)
 #     delete_contacts.delete()
 #     return redirect('/view-contacts')
-#
-#
-#
-#
-#
-#
-#
+
 
 from django.shortcuts import render, redirect
 from django.http import Http404  # Import Http404 for handling not found errors
