@@ -14,6 +14,7 @@ def about(request):
 
 
 def appointment(request):
+    success = False
     if request.method == 'POST':
 
         appointments = Appointment(
@@ -26,10 +27,11 @@ def appointment(request):
             message=request.POST.get('message'),
         )
         appointments.save()
-        return redirect('about')
+        return render(request, 'appointment.html', {'success': True})
     else:
 
-       return render(request, 'appointment.html')
+       return render(request, 'appointment.html', {'success': False})
+
 def contact(request):
     success = False
     if request.method == 'POST':
@@ -43,6 +45,18 @@ def contact(request):
         return render(request, 'contact.html', {'success': True})
     else:
         return render(request, 'contact.html', {'success': False})
+
+
+def view_appointment(request):
+    all_appointment = Appointment.objects.all()
+    return render(request, 'view-appointments.html', {'all_appointment': all_appointment})
+
+def delete_appointment(request, id ):
+    delete_appoint = Appointment.objects.get(id=id)
+    delete_appoint.delete()
+    return redirect('/view-appointments')
+
+
 
 
 

@@ -17,7 +17,19 @@ class ContactAdmin(admin.ModelAdmin):
             'all': (static('custom_admin.css'),)  # Path to your custom CSS file
         }
 
+
+class AppointmentAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'phone', 'date', 'department', 'doctor', 'message' )
+    list_display_links = ('name',)  # Fields that link to the detail view
+    list_per_page = 20  # Controls pagination in admin list view
+    ordering = ('name',)  # Sorts the items by name
+
+    class Media:
+        css = {
+            'all': (static('custom_admin.css'),)  # Path to your custom CSS file
+        }
+
 admin.site.register(Patient)
-admin.site.register(Appointment)
+admin.site.register(Appointment, AppointmentAdmin)
 admin.site.register(Contact, ContactAdmin)
 
