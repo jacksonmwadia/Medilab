@@ -127,7 +127,7 @@
                 <td>{{ appointment.message }}</td>
                 <td>
                     <!-- Action buttons with icons -->
-                    <a href="#" class="btn btn-primary btn-sm" title="Edit">
+                    <a href="{% url 'edit_appointment' appointment.id %}" class="btn btn-primary btn-sm" title="Edit">
                         <i class="fas fa-edit"></i>
                     </a>
                     <a href="/delete/{{ appointment.id }}"
