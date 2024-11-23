@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import Http404  # Import Http404 for handling not found errors
-from medilabApp.models import Appointment, Contact
+from medilabApp.models import Appointment, Contact, User1
 
 # Your existing views
 def index(request):
@@ -97,3 +97,21 @@ def edit_appointment(request, appoint_id):
         'appointment': appointment,
         'success': False
     })
+
+def register(request):
+    if request.method == 'POST':
+        users = User1(
+            name=request.POST.get['name'],
+            username=request.POST.get['username'],
+            password=request.POST['password'],
+
+
+        )
+        users.save()
+        return redirect('/login')
+    else:
+        return render(request, 'register.html')
+
+
+def login(request):
+    return render(request, 'login.html')
