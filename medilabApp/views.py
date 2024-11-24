@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import Http404  # Import Http404 for handling not found errors
-from medilabApp.models import Appointment, Contact, User1
+
+from medilabApp.forms import ImageUploadForm
+from medilabApp.models import Appointment, Contact, User1, ImageModel
+
 
 # Your existing views
 def index(request):
@@ -101,9 +104,9 @@ def edit_appointment(request, appoint_id):
 def register(request):
     if request.method == 'POST':
         users = User1(
-            name=request.POST.get['name'],
-            username=request.POST.get['username'],
-            password=request.POST['password'],
+            name = request.POST.get('name'),
+            username = request.POST.get('username'),
+            password = request.POST.get('password'),
 
 
         )
@@ -115,3 +118,22 @@ def register(request):
 
 def login(request):
     return render(request, 'login.html')
+
+def upload_image(request):
+    if request.method == 'POST':
+        form = ImageUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('/showimage')
+    else:
+        form = ImageUploadForm()
+    return render(request, 'upload_image.html', {'form': form})
+
+def show_image(request):
+    images = ImageModel.objects.all()
+    return render(request, 'show_image.html', {'images': images})
+
+def imagedelete(request, id):
+    image = ImageModel.objects.get(id=id)
+    image.delete()
+    return redirect('/showimage')
